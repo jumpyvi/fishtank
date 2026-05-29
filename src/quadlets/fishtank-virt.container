@@ -31,6 +31,9 @@ Volume=/var/lib/fishtank/libvirt-etc:/etc/libvirt:Z
 
 Exec=sh -c "virtlogd -d && libvirtd"
 
+Label=app=virt
+Label=fishtank
+
 [Install]
 WantedBy=multi-user.target
 
