@@ -1,0 +1,51 @@
+FROM alpine:latest
+
+RUN addgroup -g 5679 libvirt
+
+RUN mkdir -p /run/libvirt/qemu && \
+    chown -R root:libvirt /run/libvirt && \
+    chmod 2770 /run/libvirt
+
+RUN sed -i 's/#http/http/g' /etc/apk/repositories
+RUN apk add --no-cache \
+    qemu-system-x86_64 \
+    qemu-system-arm \
+    qemu-system-riscv32 \
+    qemu-system-riscv64 \
+    qemu-ui-spice-core \
+    qemu-audio-spice \
+    qemu-chardev-spice \
+    qemu-ui-opengl \
+    qemu-hw-display-virtio-gpu \
+    qemu-hw-display-virtio-gpu-gl \
+    qemu-hw-display-virtio-gpu-pci \
+    qemu-hw-display-virtio-gpu-pci-gl \
+    qemu-hw-display-virtio-vga \
+    qemu-hw-display-virtio-vga-gl \
+    qemu-hw-display-qxl \
+    qemu-hw-usb-redirect \
+    swtpm \
+    libvirt-daemon \
+    libvirt-client \
+    virglrenderer \
+    mesa-dri-gallium \
+    mesa-gl \
+    mesa-egl \
+    usbredir
+
+
+RUN chmod u+s /usr/lib/libvirt/libvirt_leaseshelper
+
+# RUN rm -f /etc/libvirt/qemu/networks/autostart/default.xml && \
+#     rm -f /etc/libvirt/qemu/networks/default.xml
+
+RUN echo 'user = "root"' >> /etc/libvirt/qemu.conf && \
+    echo 'group = "libvirt"' >> /etc/libvirt/qemu.conf && \
+    echo 'swtpm_user = "root"' >> /etc/libvirt/qemu.conf && \
+    echo 'swtpm_group = "libvirt"' >> /etc/libvirt/qemu.conf
+
+RUN echo 'unix_sock_group = "libvirt"' >> /etc/libvirt/libvirtd.conf && \
+    echo 'unix_sock_rw_perms = "0770"' >> /etc/libvirt/libvirtd.conf && \
+    echo 'unix_sock_ro_perms = "0777"' >> /etc/libvirt/libvirtd.conf && \
+    echo 'auth_unix_ro = "none"' >> /etc/libvirt/libvirtd.conf && \
+    echo 'auth_unix_rw = "none"' >> /etc/libvirt/libvirtd.conf
