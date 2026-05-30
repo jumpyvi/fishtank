@@ -1,19 +1,15 @@
 in-virt:
+    sudo mkdir -p /etc/containers/systemd/
     sudo podman build -f oci/qemu.oci -t localhost/qemu:3 --network host
     sudo cp src/quadlets/fishtank-virt.container /etc/containers/systemd/
     sudo systemctl daemon-reload
     sudo systemctl restart fishtank-virt
 
 in-dip:
+    sudo mkdir -p /etc/containers/systemd/
     sudo cp src/quadlets/fishtank-dip.container /etc/containers/systemd/
     sudo systemctl daemon-reload
     sudo systemctl restart fishtank-dip
-
-in-dipo:
-    sudo podman build -f oci/dipo.oci -t localhost/dipo:demo --network host
-    sudo cp src/quadlets/fishtank-dipo.container /etc/containers/systemd/
-    sudo systemctl daemon-reload
-    sudo systemctl restart fishtank-dipo
 
 setup-virt:
     flatpak override --user --filesystem=/var/lib/fishtank/ org.virt_manager.virt-manager
