@@ -1,0 +1,16 @@
+[Unit]
+Description=Extract Docker binaries to Fishtank host directory
+
+[Container]
+Image=localhost/systemddocker:3
+
+Volume=/var/lib/fishtank/docker:/host_dest:Z
+
+Exec=sh -c 'mv /app/docker/bin/* /host_dest/'
+
+[Service]
+Type=oneshot
+RemainAfterExit=no
+
+[Install]
+WantedBy=multi-user.target
