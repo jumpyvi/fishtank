@@ -9,6 +9,12 @@ in-dip:
     sudo systemctl daemon-reload
     sudo systemctl restart fishtank-dip
 
+in-dipo:
+    sudo podman build -f oci/dipo.oci -t localhost/dipo:demo --network host
+    sudo cp src/quadlets/fishtank-dipo.container /etc/containers/systemd/
+    sudo systemctl daemon-reload
+    sudo systemctl restart fishtank-dipo
+
 setup-virt:
     flatpak override --user --filesystem=/var/lib/fishtank/ org.virt_manager.virt-manager
     flatpak run org.virt_manager.virt-manager -c "qemu:///system?socket=/var/lib/fishtank/libvirtd/libvirt-sock" --show-host-summary

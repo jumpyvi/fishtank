@@ -18,7 +18,9 @@ SecurityLabelDisable=true
 SecurityLabelType=unconfined_t
 
 Volume=/var/lib/fishtank/dockerd:/var/run:z
-Volume=/home:/home:z 
+Volume=/home:/home:z
+Volume=/etc:/host/etc:z
+Volume=/var:/host/var:z
 
 
 # Volume=docker-dind-data:/var/lib/docker
