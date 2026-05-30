@@ -3,7 +3,7 @@ Description=Fishtank's virt stack
 After=network-online.target local-fs.target
 
 [Container]
-Image=localhost/qemu:3
+Image=ghcr.io/jumpyvi/qemu.oci:latest
 Pull=never
 AutoUpdate=registry
 Network=host
