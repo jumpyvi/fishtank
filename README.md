@@ -57,6 +57,5 @@ Docker installed from a quadlet to a systemd-mount
 
 # Legal / Thanks
 
-This code is provided with no restrictions or warranties under the "Unlicense".
-
-This packages and distributes libvirt components that are under GPLv2
+- This packages and distribute libvirt components from redhat/alpine that are under GPLv2
+- This packages and distribute docker components from docker/flatcar that are under Apache2.0
