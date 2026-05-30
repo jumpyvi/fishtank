@@ -11,10 +11,23 @@ in-dip:
     sudo systemctl daemon-reload
     sudo systemctl restart fishtank-dip
 
+[script]
 setup-virt:
+    existing=$(getent group libvirt | cut -d: -f3)
+    if [ -n "$existing" ] && [ "$existing" != "5679" ]; then
+        echo "ERROR: libvirt group exists with GID $existing (expected 5679)" >&2
+        exit 1
+    fi
+    printf "g libvirt 5679 -\nm %s libvirt\nu dnsmasq - \"dnsmasq\" /var/lib/dnsmasq /sbin/nologin\n" "$USER" | sudo tee /etc/sysusers.d/qemu.conf
+    sudo systemd-sysusers
+    sudo mkdir -p /etc/firewalld/zones /etc/polkit-1/actions
+    sudo cp -r ./src/sandbox/virt/etc/* /etc/
+    sudo systemctl restart polkit && sudo firewall-cmd --reload || true
+    echo "Please reboot"
     flatpak override --user --filesystem=/var/lib/fishtank/ org.virt_manager.virt-manager
     flatpak run org.virt_manager.virt-manager -c "qemu:///system?socket=/var/lib/fishtank/libvirtd/libvirt-sock" --show-host-summary
 
+[script]
 setup-dip:
     brew install docker docker-compose
     /home/linuxbrew/.linuxbrew/bin/docker context create dip --docker "host=unix:///var/lib/fishtank/dockerd/docker.sock"

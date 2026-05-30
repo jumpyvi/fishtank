@@ -41,3 +41,5 @@ WantedBy=multi-user.target
 RuntimeDirectory=fishtank
 StateDirectory=fishtank/libvirtd fishtank/libvirt-images fishtank/libvirt-etc
 ExecStartPre=/bin/sh -c "echo 'SUBSYSTEM==\"usb\", ENV{DEVTYPE}==\"usb_device\", MODE=\"0666\"' > /etc/udev/rules.d/50-spice-usb.rules && udevadm control --reload-rules && udevadm trigger"
+ExecStartPre=/bin/sh -c "podman cp localhost/qemu:3:/usr/share/polkit-1/actions/org.libvirt.unix.policy /etc/polkit-1/actions/"
+ExecStartPre=/bin/sh -c "podman cp localhost/qemu:3:/usr/lib/firewalld/zones/libvirt.xml /etc/firewalld/zones/ && podman cp localhost/qemu:3:/usr/lib/firewalld/zones/libvirt-routed.xml /etc/firewalld/zones/"

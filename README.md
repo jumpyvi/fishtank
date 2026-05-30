@@ -42,3 +42,10 @@ Also, you need a sysuser conf a bit like this:
 g docker 2375 -
 m YOUR_USER docker
 ```
+
+
+# Legal / Thanks
+
+This code is provided with no restrictions or warranties under the "Unlicense".
+
+This packages and distributes libvirt components that are under GPLv2
