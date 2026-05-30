@@ -25,13 +25,7 @@ The qemu + libvirt stack in alpine quadlet, you need a client (ex: the virt-man 
 
 `just setup-virt`
 
-Also, you need a sysuser conf a bit like this:
-```
-g libvirt 5679 -
-m YOUR_USER libvirt
-u dnsmasq - "dnsmasq" /var/lib/dnsmasq /sbin/nologin
-```
-
+You will need to reboot after the service starts so you get added to the right groups and for you polkit/firewall to reload
 
 ## Docker (DiP)
 
@@ -57,5 +51,4 @@ Docker installed from a quadlet to a systemd-mount
 
 # Legal / Thanks
 
-- This packages and distribute libvirt components from redhat/alpine that are under GPLv2
 - This packages and distribute docker components from docker/flatcar that are under Apache2.0

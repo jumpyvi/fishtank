@@ -33,9 +33,6 @@ setup-virt:
     printf "g libvirt 5679 -\nm %s libvirt\nu dnsmasq - \"dnsmasq\" /var/lib/dnsmasq /sbin/nologin\n" "$USER" | sudo tee /etc/sysusers.d/qemu.conf
     sudo systemd-sysusers
     sudo mkdir -p /etc/firewalld/zones /etc/polkit-1/actions
-    sudo cp -r ./src/sandbox/virt/etc/* /etc/
-    sudo systemctl restart polkit && sudo firewall-cmd --reload || true
-    echo "Please reboot"
     flatpak override --user --filesystem=/var/lib/fishtank/ org.virt_manager.virt-manager
     flatpak run org.virt_manager.virt-manager -c "qemu:///system?socket=/var/lib/fishtank/libvirtd/libvirt-sock" --show-host-summary
 
