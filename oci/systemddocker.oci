@@ -1,15 +1,21 @@
-FROM alpine:latest
+FROM docker:dind AS docker-source
 
-RUN apk add --no-cache curl grep coreutils tar
+FROM alpine:latest AS final
+RUN apk add --no-cache curl grep coreutils tar squashfs-tools
 
-WORKDIR /app/docker/bin
+WORKDIR /app/docker/usr/bin
+COPY --from=docker-source /usr/local/bin/docker* .
+COPY --from=docker-source /usr/local/bin/containerd* .
+COPY --from=docker-source /usr/local/bin/runc .
+COPY --from=docker-source /usr/local/bin/ctr .
 
-RUN LATEST_TGZ=$(curl -s https://download.docker.com/linux/static/stable/x86_64/ | \
-    grep -o 'docker-[0-9]*\.[0-9]*\.[0-9]*\.tgz' | \
-    sort -V | tail -n 1) && \
-    echo "Found latest version: $LATEST_TGZ" && \
-    curl -fsSL "https://download.docker.com/linux/static/stable/x86_64/$LATEST_TGZ" -o docker.tgz && \
-    tar -xzf docker.tgz --strip-components=1 && \
-    rm docker.tgz
-    
 RUN ./docker --version
+
+COPY ./systemddocker.oci.d/etc/ /app/docker/usr/lib/
+COPY ./systemddocker.oci.d/usr/lib/ /app/docker/usr/lib/
+
+RUN mkdir -p /app/out && \
+    mksquashfs /app/docker/ /app/out/docker.raw \
+    -noappend \
+    -comp xz \
+    -b 131072

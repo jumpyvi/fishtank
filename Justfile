@@ -12,14 +12,11 @@ in-dip:
     sudo systemctl restart fishtank-dip
 
 in-systemddocker:
-    sudo mkdir -p /etc/containers/systemd/ /var/lib/fishtank/docker/
     sudo podman build -f oci/systemddocker.oci -t localhost/systemddocker:3 --network host
     sudo cp src/quadlets/systemd-docker.container /etc/containers/systemd/
-    sudo cp -r ./src/sandbox/systemd-docker/etc/* /etc/
     sudo systemctl daemon-reload
-    sudo systemctl enable --now usr-bin.mount
-    sudo containerd config default | sudo tee /etc/containerd/config.toml
     sudo systemctl restart systemd-docker
+    sudo containerd config default | sudo tee /etc/containerd/config.toml
     sudo systemctl restart containerd.service
     sudo systemctl restart docker.service
 

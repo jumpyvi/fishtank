@@ -3,14 +3,14 @@ Description=Extract Docker binaries to Fishtank host directory
 
 [Container]
 Image=localhost/systemddocker:3
-
-Volume=/var/lib/fishtank/docker:/host_dest:Z
-
-Exec=sh -c 'mv /app/docker/bin/* /host_dest/'
+Volume=/var/lib/extensions/:/host_sysext:Z
+Exec=sh -c 'mv /app/out/docker.raw /host_sysext/'
 
 [Service]
 Type=oneshot
+StateDirectory=extensions
 RemainAfterExit=no
+ExecStartPost=systemd-sysext refresh
 
 [Install]
 WantedBy=multi-user.target
