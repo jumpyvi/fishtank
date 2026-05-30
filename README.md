@@ -5,6 +5,20 @@
 ![alt text](media/u1f41f_u1f52e.png)
 
 
+# What is this?
+
+This uses systemd-based utils to install software of read-only root Linux.
+
+Goals: </br>
+    - Auto-update everything </br>
+    - As few UX changes as possible once installed </br>
+    - Compatible with every non-selinux, systemd-based GLIBC distros </br>
+
+Non-goals: </br>
+    - Install scripts that makes sense </br>
+    - SELinux/Fedora support
+
+
 # Quick setup
 
 This is incompatible with SELinux
@@ -15,7 +29,6 @@ Made for
 - zirconium:hawaii
 - bluefin:dakota
 - gnomeOS
-- Probably any non-SELinux distro
 
 
 ## Virtualization (Libvirt + MultiArch Qemu)
@@ -26,7 +39,7 @@ The qemu + libvirt stack in alpine quadlet, you need a client (ex: the virt-man 
 
 `just setup-virt`
 
-You will need to reboot after the service starts so you get added to the right groups and for you polkit/firewall to reload
+You will need to reboot after the service starts so you get added to the right groups and for your polkit/firewall to reload
 
 ## Docker (DiP)
 
@@ -51,7 +64,7 @@ m YOUR_USER docker
 
 Docker installed from a quadlet to a sysext
 
-Docker is NOT containerized with that install method, it's as close as "good old "shove and run" packaging" as it gets
+Docker is NOT containerized with that install method, it's as close as good old "shove and run packaging" as it gets
 
 `just in-systemddocker`
 
