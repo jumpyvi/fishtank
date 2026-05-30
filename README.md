@@ -76,4 +76,5 @@ Why the fuck?
 
 # Legal / Thanks
 
-- This packages and distribute docker components from docker/flatcar that are licensed under Apache2.0
+- This packages and distribute modified docker components from docker/flatcar that are licensed under Apache 2.0
+- This uses workflows modified from [ublue-os/boxkit](https://github.com/ublue-os/boxkit/blob/main/.github/workflows/build-boxkit.yml) licensed under Apache 2.0
