@@ -1,6 +1,5 @@
 in-virt:
     sudo mkdir -p /etc/containers/systemd/
-    sudo podman build -f oci/qemu.oci -t localhost/qemu:3 --network host
     sudo cp src/quadlets/fishtank-virt.container /etc/containers/systemd/
     sudo systemctl daemon-reload
     sudo systemctl restart fishtank-virt
@@ -12,7 +11,6 @@ in-dip:
     sudo systemctl restart fishtank-dip
 
 in-systemddocker:
-    sudo podman build -f oci/systemddocker.oci -t localhost/systemddocker:3 --network host
     sudo cp src/quadlets/systemd-docker.container /etc/containers/systemd/
     sudo systemctl daemon-reload
     sudo systemctl restart systemd-docker
