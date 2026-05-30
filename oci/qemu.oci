@@ -24,6 +24,7 @@ RUN apk add --no-cache \
     qemu-hw-display-virtio-vga-gl \
     qemu-hw-display-qxl \
     qemu-hw-usb-redirect \
+    qemu-img \
     swtpm \
     libvirt-daemon \
     libvirt-client \
