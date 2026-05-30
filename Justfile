@@ -14,6 +14,7 @@ in-systemddocker:
     sudo cp src/quadlets/systemd-docker.container /etc/containers/systemd/
     sudo systemctl daemon-reload
     sudo systemctl restart systemd-docker
+    sudo mkdir -p /etc/containerd/
     sudo containerd config default | sudo tee /etc/containerd/config.toml
     sudo systemctl restart containerd.service
     sudo systemctl restart docker.service
