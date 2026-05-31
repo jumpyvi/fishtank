@@ -74,6 +74,17 @@ Why the fuck?
 - No downside / crazy deps (like brew)
 
 
+## Flatcar components installer
+
+Download sysext directly from flatcar!
+
+- Docker
+- Tailscale
+- k3s
+- rke2
+
+`just -f flatcar-install.just --choose`
+
 # Legal / Thanks
 
 - This packages and distribute modified docker components from docker/flatcar that are licensed under Apache 2.0
