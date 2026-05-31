@@ -3,6 +3,7 @@ in-virt:
     backend=$(grep -E '^FirewallBackend=' /etc/firewalld/firewalld.conf | cut -d= -f2)
     if [ "$backend" != "iptables" ]; then
         echo "Error: firewalld backend is currently '$backend'. This software is only compatible with iptables" >&2
+        echo "Please send in a PR if you can fix this"
         exit 1
     fi
     sudo mkdir -p /etc/containers/systemd/
