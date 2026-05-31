@@ -25,6 +25,7 @@ AddDevice=/dev/kvm
 AddDevice=/dev/bus/usb
 Mount=type=bind,source=/dev/dri,destination=/dev/dri
 Mount=type=bind,source=/var/lib/fishtank/libvirtd,destination=/run/libvirt
+Mount=type=bind,source=/home,destination=/home
 
 # Storage
 Mount=type=bind,source=/var/lib/fishtank/libvirt-images,destination=/var/lib/libvirt
@@ -45,3 +46,4 @@ ExecStartPre=/bin/sh -c "echo 'SUBSYSTEM==\"usb\", ENV{DEVTYPE}==\"usb_device\",
 ExecStartPost=/bin/sh -c "podman cp fishtank-virt-systemd:/usr/share/polkit-1/actions/org.libvirt.unix.policy /etc/polkit-1/actions/"
 ExecStartPost=/bin/sh -c "podman cp fishtank-virt-systemd:/usr/lib/firewalld/zones/libvirt-routed.xml /etc/firewalld/zones/"
 ExecStartPost=/bin/sh -c "podman cp fishtank-virt-systemd:/usr/lib/firewalld/zones/libvirt.xml /etc/firewalld/zones/"
+ExecStartPost=/bin/sh -c "firewall-cmd --zone=libvirt --add-masquerade --permanent || true"
