@@ -3,7 +3,9 @@ Description=Extract Docker binaries to Fishtank host directory
 
 [Container]
 Image=ghcr.io/jumpyvi/systemddocker.oci:latest
+Pull=always
 Volume=/var/lib/extensions/:/host_sysext:Z
+AutoUpdate=registry
 Exec=sh -c 'mv /app/out/docker.raw /host_sysext/'
 
 [Service]
